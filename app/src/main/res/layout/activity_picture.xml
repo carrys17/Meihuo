@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+ >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/picture_app_bar">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/picture_toolbar"
+            android:background="@color/blue"
+            app:navigationIcon="@mipmap/icon_back"
+            app:title="关于爱吖妹纸"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/picture_img"
+        android:contentDescription="@null"/>
+    <!--contentDescription，其实这个属性是方便一些生理功能有缺陷的人使用应用程序的。比如我们有一个ImageView里面放置一
+    张颜色复杂的图片，可能一些色弱色盲的人，分不清这张图片中画的是什么东西。如果用户安装了辅助浏览
+    工具比如TalkBack,TalkBack就会大声朗读出用户目前正在浏览的内容-->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_image_save"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/picture_btn_save"
+        android:contentDescription="@null"
+        android:layout_gravity="bottom|center_horizontal"/>
+
+
+</FrameLayout>

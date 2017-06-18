@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!--总布局，除了Menu侧滑栏之后就是这个了 ，由上（包括了中间那个横栏），下（就是viewpager），
+    左上角（FloatingActionButton，一个按钮?！目前不懂事什么作用）三部分组成-->
+    <!---->
+
+    <!--总布局，Behavior只有是CoordinatorLayout的直接子View（这里的是Viewpager）才有意义。-->
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorActivityBackground">
+
+
+        <!--上部分-->
+        <!--AppBarLayout继承自LinearLayout，布局方向为垂直方向。所以你可以把它当成垂直布局
+        的LinearLayout来使用。AppBarLayout是在LinearLayou上加了一些材料设计的概念，它可以让
+        你定制当某个可滚动View的滚动手势发生变化时，其内部的子View实现何种动作。
+
+        这里的可滚动的view为CollapsingToolbarLayout
+        -->
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/main_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="280dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+                <!--去掉之后下方的滑动，会跑到collapsingToolbarLayout的后面去，即从来拉票singToolbarLayout不会被滑动-->
+
+
+                <com.youth.banner.Banner
+                    android:id="@+id/main_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    app:layout_collapseParallaxMultiplier="0.4"
+                    app:layout_collapseMode="parallax"/>
+                <!--设置为parallax这个模式时，在内容滚动时，CollapsingToolbarLayout中的View
+                （比如ImageView)也可以同时滚动，实现视差滚动效果，通常和
+                layout_collapseParallaxMultiplier(设置视差因子)搭配使用。-->
+
+
+                <!--中间那个横栏,像是为了包装中间的横栏而已 还有snackbar的使用，封装snackbar输出用到-->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    style="@style/MyToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:paddingBottom="1dp"
+                    app:layout_collapseMode="pin">
+                    <!-- pin设置为这个模式时，当CollapsingToolbarLayout完全收缩后，Toolbar还可以保留在屏幕上。-->
+
+                    <!--这是一种tablayout的变式，中间的横栏与下面的viewpager结合起来使用的，动画效果是默认给的-->
+                    <!--具体看效果可以这个网站http://www.ctolib.com/Dachshund-Tab-Layout.html-->
+                    <com.kekstudio.dachshundtablayout.DachshundTabLayout
+                        android:id="@+id/main_tab"
+                        style="@style/MyCustomTabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:tabMode="scrollable"
+                        app:tabGravity="center"/>
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!--下方布局，尼玛。果然学过的，想起来了，慕课网上有看过视频，有点像微信那个切换-->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <!--去掉之后不会缩在下方，即不与上面对应起来，全屏显示，后方还有轮播图-->
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!--NavigationView  这个是一个控件而已，官方写好的，比如知乎之类的用的也是这个，上面是头部，
+    一般的布局就是来个背景，然后头像，昵称  获取头部在23.1.0以后要用新的方式，具体看NavigationViewTest。
+    下面为menu文件下定义的item项，看起来有点像listview，
+    但是灵活了许多，比如加分割线就是将item放入group，设置隐藏某项item等-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/main_white"
+        android:clickable="true"
+        android:fitsSystemWindows="true"/>
+    <!--fitsSystemWindows 设置状态栏在4.4以下是不透明，4.4以上是全透明，5.0以上是半透明-->
+</android.support.v4.widget.DrawerLayout>
